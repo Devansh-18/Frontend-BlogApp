@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Spinner from './Spinner'
 import BlogDetails from './BlogDetails'
+import { AppContext } from '../context/AppContext'
 
-const Blogs = ({loading, blogs}) => {
+const Blogs = () => {
+
+  const {loading, blogs} = useContext(AppContext);
+
   return (
     <div>
       {

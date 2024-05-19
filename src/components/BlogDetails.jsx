@@ -5,17 +5,19 @@ const BlogDetails = ({blog}) => {
   return (
     <div>
       <div>
-        <Navlink to={`/`}>
+        <NavLink to={`/blog/${blog._id}`}>
             {blog.title}
-        </Navlink>
+        </NavLink>
       </div>
       <div>{blog.user}</div>
-      <div>{blog.tag}</div>
+      <NavLink to={`/tag/${blog.tag.replaceAll(" ","-")}`}>
+        {blog.tag}
+      </NavLink>
       <div>
         {
             blog.hashtag.map((hashtag, index)=>{
-                return <NavLink to={`/hashtag/${hashtag}`} key={index}>
-                    <span>{hashtag}</span>
+                return <NavLink to={`/hashtag/${blog.hashtag.replaceAll(" ","-")}`} key={index}>
+                    <span>{`#${hashtag}`}</span>
                 </NavLink>
             })
         }
