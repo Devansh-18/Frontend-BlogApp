@@ -12,15 +12,17 @@ const HashtagPage = () => {
   const hashtag = location.pathname.split("/").at(-1);
 
   return (
-    <div>
+    <div className='flex flex-col bg-slate-500 w-full h-full gap-4'>
       <Navbar/>
-      <button onclick={()=>{
-        navigate(-1);
-      }}>
-        Back
-      </button>
-      <div>
-        Showing Articles on <span>{hashtag}</span>
+      <div className='w-2/3 mx-auto'>
+        <button className='border-2 border-slate-600 rounded-md w-20 hover:bg-slate-700 transition-all ease-in-out' onClick={()=>{
+          navigate(-1);
+        }}>
+          Back
+        </button>
+        <div className='text-lg font-bold'>
+          Showing Articles on <span>{hashtag}</span>
+        </div>
       </div>
       <Blogs/>
       <Footer/>

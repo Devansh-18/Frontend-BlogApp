@@ -14,7 +14,7 @@ const TagPage = () => {
   return (
     <div>
       <Navbar/>
-      <button onclick={()=>{
+      <button onClick={()=>{
         navigate(-1);
       }}>
         Back
@@ -23,7 +23,6 @@ const TagPage = () => {
         Showing Articles on <span>{tag}</span>
       </div>
       <Blogs/>
-      <Footer/>
     </div>
   )
 }

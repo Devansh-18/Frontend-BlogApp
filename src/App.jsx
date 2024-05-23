@@ -16,10 +16,11 @@ function App() {
   const {fetchBlogs} = useContext(AppContext);
 
   useEffect(()=>{
+    
     const page = searchParams.get("page") ?? 1;
-    if(location.pathname.includes("tag")){
+    if(location.pathname.includes("/tag")){
       const tag = location.pathname.split('/').at(-1).replaceAll("-"," ");
-      fetchBlogs(Number(page),tag);
+      fetchBlogs(Number(page),tag,null);
     }
     else if(location.pathname.includes("hashtag")){
       const hashtag = location.pathname.split('/').at(-1).replaceAll("-"," ");
@@ -32,9 +33,9 @@ function App() {
   },[location.pathname, location.search])
   
   return (
-    <div className='flex flex-col'>
-      <Routes>
-        <Route path='/' element={<Home/>} />
+    <div className='w-full h-full min-h-screen flex'>
+      <Routes className='w-full h-full'>
+        <Route className='h-full' path='/' element={<Home/>} />
         <Route path='/blog/:blogId' element={<BlogPage/>} />
         <Route path='/tag/:tag' element={<TagPage/>} />
         <Route path='/hashtag/:hashtag' element={<HashtagPage/>} />

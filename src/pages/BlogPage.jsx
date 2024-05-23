@@ -16,16 +16,18 @@ const BlogPage = () => {
   const navigate = useNavigate();
 
   const blogId = location.pathname.split("/").at(-1);
-
+  
   async function fetchBlogById(){
+    console.log("are yaha kaise");
     setLoading(true);
     let url = `${baseUrl}?blogId=${blogId}`;
     try{
       const res = await fetch(url);
-      const data = res.json();
+      const data = await res.json();
+      console.log(data);
 
       setBlog(data.blog);
-      setRelatedBlogs(data.relatedBlogs);
+      setRelatedBlogs(data.relatedTag);
 
     }
     catch(error){
@@ -61,7 +63,7 @@ const BlogPage = () => {
               <h2>Related Blogs</h2>
               {
                 relatedBlogs.map((blog)=>(
-                  <BlogDetails blog={blog}/>
+                  <BlogDetails key={blog._id} blog={blog}/>
                 ))
               }
             </div>

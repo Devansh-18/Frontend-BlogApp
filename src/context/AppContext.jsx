@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();
 
-function AppContextProvider({children}){
+export default function AppContextProvider({children}){
 
     const navigate = useNavigate();
 
@@ -14,7 +14,8 @@ function AppContextProvider({children}){
     const [page,setPage] = useState(1);
     const [totalPages,setTotalPages] = useState(null);
 
-    async function fetchBlogs(page,tag=null,hashtag){
+    async function fetchBlogs(page,tag,hashtag){
+        setLoading(true);
         let url = `${baseUrl}?page=${page}`;
         if(tag){
             url += `&tag=${tag}`;
@@ -22,21 +23,30 @@ function AppContextProvider({children}){
         else if(hashtag){
             url += `&hashtag=${hashtag}`;
         }
-
-        setLoading(true);
-
         try{
-            const res = await fetch(url);
+            const res = await fetch(url,{
+                origin:"http://localhost/5173",
+                mode:"cors",
+                method:"GET",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Access-Control-Allow-Origin" : "*"
+                },
+            });    
             const data = await res.json();
-
             if(!data.blogs || data.blogs.length === 0){
                 throw new Error("Blogs not fetched");
             }
-
-            setPage(data.page);
-            setTotalPages(data.totalPages);
-            setBlogs(data.blogs);
-
+            
+            if(!tag){
+                setPage(data.page);
+                setTotalPages(data.totalPages);
+                setBlogs(data.blogs);
+            }
+            else{
+                setBlogs(data.blogs);
+            }
+            
         }
         catch(error){
             setPage(1);
